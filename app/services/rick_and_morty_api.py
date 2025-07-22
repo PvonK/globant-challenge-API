@@ -1,5 +1,7 @@
 import os
 import requests
+from urllib.parse import urlencode
+
 # Manejo de errores de la API externa
 from app.exceptions.external_api import ExternalAPIError
 
@@ -97,6 +99,24 @@ class RickAndMortyAPI:
             "alive_count": alive_count,
         }
 
+    def get_location_by_name_and_type(self, name=None, type_=None):
+        query = {}
+        if name:
+            query["name"] = name
+        if type_:
+            query["type"] = type_
+
+        url = f"{self.base_url}/location?{urlencode(query)}"
+        response = self._get(url)
+
+        if not response.get("results"):
+            raise ExternalAPIError(
+                "No matching location found",
+                status_code=404
+                )
+
+        return response["results"][0]
+
     def _get(self, url):
         try:
             response = requests.get(url, timeout=5)
@@ -134,5 +154,9 @@ class RickAndMortyAPI:
 
 if __name__ == "__main__":
     v = RickAndMortyAPI()
-    a = v.get_all_characters_stats()
+    # a = v.get_all_characters_stats()
+    a = v.get_location_by_name_and_type(
+        # name="D716",
+        # type_="country"
+        )
     print(a)
