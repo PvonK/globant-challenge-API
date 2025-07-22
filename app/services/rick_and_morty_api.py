@@ -150,13 +150,3 @@ class RickAndMortyAPI:
                 "Invalid JSON response",
                 status_code=502
                 )
-
-
-if __name__ == "__main__":
-    v = RickAndMortyAPI()
-    # a = v.get_all_characters_stats()
-    a = v.get_location_by_name_and_type(
-        # name="D716",
-        # type_="country"
-        )
-    print(a)
