@@ -1,14 +1,21 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask
+from app.routes.characters import characters_bp
+from app.routes.location import location_bp
 
 
-app = Flask(__name__)
+load_dotenv()
 
 
-@app.route("/characters")
-def characters():
-    return "<p>Hello, World!</p>"
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(characters_bp)
+    app.register_blueprint(location_bp)
+    return app
 
 
-@app.route("/location")  # name=earth&type=planet
-def location():
-    return "<p>Hello, World!</p>"
+if __name__ == "__main__":
+    app = create_app()
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
