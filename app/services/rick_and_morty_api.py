@@ -119,7 +119,7 @@ class RickAndMortyAPI:
 
     def _get(self, url):
         try:
-            response = requests.get(url, timeout=5)
+            response = requests.get(url, timeout=10)
             response.raise_for_status()
 
         # Si surge un error en el request, levanto una excepcion
