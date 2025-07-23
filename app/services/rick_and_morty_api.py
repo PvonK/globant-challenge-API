@@ -117,7 +117,8 @@ class RickAndMortyAPI:
 
         return response["results"][0]
 
-    def _get(self, url):
+    @staticmethod
+    def _get(url):
         try:
             response = requests.get(url, timeout=10)
             response.raise_for_status()
