@@ -6,5 +6,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-#CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "run:app"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} run:app"]
