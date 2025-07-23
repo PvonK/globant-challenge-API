@@ -78,7 +78,7 @@ class RickAndMortyAPI:
         # Itero cada personaje en la lista de personajes
         for character in character_list:
             name = character.get("name")
-            if name:
+            if name and isinstance(name, str):
                 character_names.append(name)
 
             if character.get("species") == HUMAN:
@@ -115,7 +115,15 @@ class RickAndMortyAPI:
                 status_code=404
                 )
 
-        return response["results"][0]
+        result = response["results"][0]
+
+        if "type" not in result or "name" not in result:
+            raise ExternalAPIError(
+                "Invalid JSON response",
+                status_code=502
+                )
+
+        return result
 
     @staticmethod
     def _get(url):
