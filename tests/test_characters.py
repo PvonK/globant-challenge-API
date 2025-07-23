@@ -52,6 +52,40 @@ def test_characters_success(client):
         assert data["alive_count"] == 2
 
 
+# Endpoint funciona correctamente con datos vacios
+def test_characters_success_empty(client):
+    mock_stats = {
+        "character_names": [],
+        "human_count": 0,
+        "not_human_count": 0,
+        "dead_count": 0,
+        "alive_count": 0
+    }
+
+    # mockeo el metodo get_all_characters_stats
+    with patch(
+            "app.routes.characters.RickAndMortyAPI.get_all_characters_stats"
+            ) as mock_stats_method:
+
+        # Defino el return value del metodo get_all_characters_stats
+        mock_stats_method.return_value = mock_stats
+
+        # Hago el request al endpoint que voy a testear (/characters)
+        response = client.get("/characters")
+
+        # checkeo que los valores de retorno son los esperados
+        assert response.status_code == 200
+        assert response.headers["Content-Type"] == "application/json"
+
+        # checkeo que la data es la correcta
+        data = response.get_json()
+        assert data["character_names"] == []
+        assert data["human_count"] == 0
+        assert data["not_human_count"] == 0
+        assert data["dead_count"] == 0
+        assert data["alive_count"] == 0
+
+
 # Endpoint falla por que la api externa no esta disponible
 def test_characters_external_api_failure(client):
     with patch(
