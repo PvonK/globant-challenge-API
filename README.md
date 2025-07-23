@@ -9,7 +9,7 @@ First you will need to clone the repository.
 
 Now, to deploy the API:
 
-### Docker (recommended)
+### Option 1: Deploy with Docker (recommended)
 
 To deploy the API with docker, first make sure you have docker installed.
 
@@ -25,7 +25,7 @@ To deploy the API with docker, first make sure you have docker installed.
 4. Done! Now the project is running on localhost, port 5000.
 
 
-### Make (one command) (on linux systems)
+### Option 2: Deploy with Make (one command) (on linux systems)
 To deploy the API with make, first make sure you have "make" installed.
 
 1. Run the following command: `make -h`
@@ -37,7 +37,7 @@ To deploy the API with make, first make sure you have "make" installed.
 
 
 
-### No containers
+### Option 3: Deploy with no containers (not recommended)
 
 To run the API locally without docker you need to first install all the dependencies. It is recommended that you install them on a virtual environment.
 
@@ -50,7 +50,6 @@ To run the API locally without docker you need to first install all the dependen
 ---
 
 ## Technical info: RickAndMortyAPI
-Goal: Create a Rick and Morty data API.
 
 
 ### Available endpoints:
